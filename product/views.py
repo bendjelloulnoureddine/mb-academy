@@ -37,13 +37,14 @@ def add_product(request):
 
 def edit_product(request, pk):
     # Get the specific product
-    product = get_object_or_404(Product, pk)
+    product = get_object_or_404(Product, id=pk)
+
     # Create a product with the data populated
     form = ProductModelForm(
-            request.POST,
-            request.FILES, 
+            request.POST or None,
+            request.FILES or None, 
             instance=product
-        )
+    )
     # Check the Type of the request
     if request.method == 'POST':
         form.save()
