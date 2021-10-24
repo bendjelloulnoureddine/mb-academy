@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+
 
 from .models import Product
 from .forms import (
@@ -35,14 +36,41 @@ def add_product(request):
 
 
 def edit_product(request, pk):
-    pass
+    # Get the specific product
+    product = get_object_or_404(Product, pk)
+    # Create a product with the data populated
+    form = ProductModelForm(
+            request.POST,
+            request.FILES, 
+            instance=product
+        )
+    # Check the Type of the request
+    if request.method == 'POST':
+        form.save()
+
+    context = {
+            'form': form
+            }
+    return render(request,'product/update.html', context)
 
 def delete_product(request, pk):
     pass
 
 def poduct_list(request):
-    pass
+    products = Product.objects.all()
+    context = {
+        'product_list': products
+    }
+    return render(request, 'product/list.html', context)
 
-def product_detail(request, pk):
-    pass
+def product_detail(request, id):
+    product = get_object_or_404(Product, pk=id)
+    
+    context = {
+        'product': product
+    }
+    return render(request, 'product/detail.html', context)
+
+
+
 # CRUD
