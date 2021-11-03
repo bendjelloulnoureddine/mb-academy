@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-
+from django.http import HttpResponseRedirect
 
 from .models import Product
 from .forms import (
@@ -54,8 +54,12 @@ def edit_product(request, pk):
             }
     return render(request,'product/update.html', context)
 
-def delete_product(request, pk):
-    pass
+def delete_product(request, id):
+    product = get_object_or_404(Product, pk=id)
+    
+    if request.method== 'POST':
+        product.delete()
+    return HttpResponseRedirect('/')
 
 def poduct_list(request):
     products = Product.objects.all()
