@@ -1,16 +1,20 @@
+<!DOCTYPE html>
+{% load static %}
 <html>
     <head>
-        <title>E commerce</title>
+	<link href="{% static 'fontawesome/css/all.min.css' %}" rel="stylesheet">
+	<link href="{% static 'boostrap/css/bootstrap.min.css' %}" rel="stylesheet">
     </head>
 
     <body>
-        <h2>Navbar</h2>
-        <hr> 
+        {% include 'core/navbar.html' %}
+	<!-- -->
         {% block content  %}
 
         {% endblock content %}
-        <hr>
-        <h2>Footer</h2>
+	<!-- -->
+	{% include 'core/footer.html' %}
     </body>
+    <script src="{% static 'boostrap/js/bootstrap.bundle.min.js' %}" ></script>
 
 </html>

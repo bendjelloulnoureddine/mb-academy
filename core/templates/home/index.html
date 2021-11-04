@@ -1,0 +1,49 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+	<div class="container mt-3">
+		<div 
+		    id="carouselExampleControls" 
+		    class="carousel slide" 
+		    data-bs-ride="carousel">
+		  <div class="carousel-inner">
+		    {% for slide in slide_list %}
+		    {% if forloop.counter == 1 %}
+		    	<div class="carousel-item active">
+		    {% else %}
+			<div class="carousel-item">
+		    {% endif %}
+		      <img 
+	   		src="{{slide.image.url}}" class="d-block w-100 h-70">
+		    </div>
+		    {% endfor %}
+		  </div>
+	  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+	    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+	    <span class="visually-hidden">Previous</span>
+	  </button>
+	  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+	    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+	    <span class="visually-hidden">Next</span>
+	  </button>
+		</div>
+        </div>
+        <div class='container mt-4'> 
+            <div class='row'>
+        {% for element in product_list %}
+        <div class="col-sm-12 col-md-4">
+    	 <div class="card" style="width: 18rem;">
+            <img src="{{ element.image }}" class="card-img-top" alt="...">
+	 		<div class="card-body">
+            <h5 class="card-title">{{element.name}}</h5>
+            <a href="{% url 'product-edit' element.id %}" class="btn btn-primary">Voire Le Produit</a>
+         </div>
+        </div>
+        </div>
+        {% endfor %}
+            </div>
+        </div>
+
+    </div>
+    {% include 'home/categories.html' %}
+{% endblock content %}

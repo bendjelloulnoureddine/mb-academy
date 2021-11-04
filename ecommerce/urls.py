@@ -1,13 +1,15 @@
 from django.contrib import admin
 from django.urls import path, include
 
-from contact.views import contact
+from core.views import home
 
 urlpatterns = [
     # Admin Urls
     path('admin/', admin.site.urls),
+    # Home Views
+    path('', home),
     # Product Urls
-    path('', include('product.urls')),
+    path('product/', include('product.urls')),
     # Contact Urls
     path('contact-us/', include('contact.urls'))
 ]

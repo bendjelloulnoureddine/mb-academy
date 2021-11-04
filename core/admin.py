@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from core.models import Slider, SliderImage, WebSite
+
+admin.site.register(Slider)
+admin.site.register(SliderImage)
+admin.site.register(WebSite)
