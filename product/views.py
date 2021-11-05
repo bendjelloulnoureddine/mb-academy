@@ -11,13 +11,14 @@ from .forms import (
 
 def products(request):
     query = request.GET.get('q')
-    #if query is not '' or query is not None:
-    queryset = Product.objects.filter(
+
+    if query != '' and query is not None:
+        queryset = Product.objects.filter(
                     Q(name__icontains=query)|
                     Q(category__name__icontains=query)
                 )
-    #else:
-    #    queryset = Porduct.objects.all()
+    else:
+        queryset = Product.objects.all()
 
     context = {
          'products': queryset

@@ -7,7 +7,7 @@ urlpatterns = [
     # Admin Urls
     path('admin/', admin.site.urls),
     # Home Views
-    path('', home),
+    path('', home, name='home'),
     # Product Urls
     path('product/', include('product.urls')),
     # Contact Urls

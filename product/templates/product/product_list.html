@@ -1,8 +1,11 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
+<div class="container">
     <form method="GET">
-        <input value="{{ request.GET.q }}" name="q" type="text" />
+        <div class="input-group input-group-sm mb-3">
+            <input class="form-control" name="q" type="search" />
+        </div>
     </form>
     <br>
     <div class="container mt-4">
@@ -13,4 +16,5 @@
 
     {% endfor %}
     </div>
+</div>
 {% endblock content %}
