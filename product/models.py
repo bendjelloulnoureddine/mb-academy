@@ -12,7 +12,7 @@ class Category(models.Model):
                         null=True,
                         unique=True
                         )
-
+    slug = models.SlugField(unique=True)
     def __str__(self):
         return f'{self.name}'
 

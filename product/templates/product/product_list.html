@@ -1,0 +1,16 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+    <form method="GET">
+        <input value="{{ request.GET.q }}" name="q" type="text" />
+    </form>
+    <br>
+    <div class="container mt-4">
+    {% for product in products %}
+        {{product.name}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+        <a href="{% url 'add_to_cart' product.id %}">add to cart</a>
+        <hr>
+
+    {% endfor %}
+    </div>
+{% endblock content %}

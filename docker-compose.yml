@@ -1,9 +1,9 @@
 version: '2'
 services:
   web:
-    container_name: '${SERVICE_NAME}'
+    container_name: web
     build: ./build/web
-    command: '${CMD_PROD}'
+    command: gunicorn ecommerce.wsgi:application -b 0.0.0.0:8000
     ports:
       - '8000:8000'
     volumes:
@@ -15,19 +15,19 @@ services:
       - db
 
   db:
-    image: 'postgres:${POSTGRES_VERSION}'
-    container_name: '${SERVICE_NAME}-db'
+    image: postgres
+    container_name: db_web
     environment:
-      - POSTGRES_DB='${SERVICE_NAME}_db'
-      - POSTGRES_USER='${POSTGRES_USER}'
-      - POSTGRES_PASSWORD='${POSTGRES_PASSWORD}'
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     volumes:
       - './data:/var/lib/postgresql/data:rw'
     networks:
       - net
 
   proxy:
-    container_name: '${SERVICE_NAME}-PROXY'
+    container_name: web-proxy
     build: ./build/proxy
     restart: always
     ports:

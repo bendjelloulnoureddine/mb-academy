@@ -11,5 +11,7 @@ urlpatterns = [
     # Product Urls
     path('product/', include('product.urls')),
     # Contact Urls
-    path('contact-us/', include('contact.urls'))
+    path('contact-us/', include('contact.urls')),
+    # Order Urls
+    path('order/', include('order.urls')),
 ]

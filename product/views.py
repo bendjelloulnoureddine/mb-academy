@@ -1,24 +1,30 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 
+from django.db.models import Q
+
 from .models import Product
 from .forms import (
         CategoryModelForm,
         ProductModelForm
         )
 
-def home(request):
-    product_list  = Product.objects.all()
-    form          = CategoryModelForm
+def products(request):
+    query = request.GET.get('q')
+    #if query is not '' or query is not None:
+    queryset = Product.objects.filter(
+                    Q(name__icontains=query)|
+                    Q(category__name__icontains=query)
+                )
+    #else:
+    #    queryset = Porduct.objects.all()
 
     context = {
-            'product_list' : product_list,
-            'title': 'Mon titre',
-            'number': 55,
-            'form': form
-    }
-
-    return render(request, 'product/index.html', context)
+         'products': queryset
+        }
+    return render(request,
+            'product/product_list.html',
+            context=context)
 
 def add_product(request):
     form = ProductModelForm(request.POST or None, request.FILES or None)
