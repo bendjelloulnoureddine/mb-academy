@@ -4,6 +4,9 @@ from django.urls import reverse_lazy, resolve
 from product.models import Product
 from order.models import Order, OrderItem
 
+def order_items(request):
+    return render(request, 'order/order_items.html')
+
 def add_to_cart(request, id):
     # Get the product
     product = Product.objects.get(id=id)
