@@ -1,20 +1,32 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-<div class="container">
-    <form method="GET">
-        <div class="input-group input-group-sm mb-3">
-            <input class="form-control" name="q" type="search" />
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-sm-12 col-md-6">
+            <form method="GET">
+                <div class="input-group input-group-sm mb-3">
+                    <input class="form-control" name="q" type="search" placeholder="Rechercher ..." />
+                </div>
+            </form>
         </div>
-    </form>
-    <br>
-    <div class="container mt-4">
-    {% for product in products %}
-        {{product.name}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-        <a href="{% url 'add_to_cart' product.id %}">add to cart</a>
-        <hr>
-
-    {% endfor %}
+    </div>
+    <div class="container mt-3">
+        <div class="row">
+        {% for product in products %}
+            <div class="col-sm-12 col-md-3 p-2">
+                <div class="card" style="width: 18rem;">
+                    <img src="{{product.image.url}}" class="card-img-top p-2">
+                  <div class="card-body">
+                  <h5 class="card-title">{{product.name}}</h5>
+              </div>
+                <div class="card-body text-center">
+                    <a href="#" class="card-link text-black">Voire le Produit</a>
+                </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
     </div>
 </div>
 {% endblock content %}
