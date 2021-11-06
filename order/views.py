@@ -5,7 +5,27 @@ from product.models import Product
 from order.models import Order, OrderItem
 
 def order_items(request):
-    return render(request, 'order/order_items.html')
+    total_price = 0
+    try:
+        order = Order.objects.filter(is_checked=False)[0]
+        for item in order.products.all():
+            total_price = total_price + item.product.sellingPrice
+    except:
+        order = []
+
+    context = {
+        'order': order,
+        'total_price': total_price
+
+        }
+    return render(request, 'order/order_items.html', context)
+
+def validate_order(request):
+    order = Order.objects.filter(is_checked=False)[0]
+    order.is_checked = True
+    order.save()
+    return redirect(reverse_lazy('home'))
+
 
 def add_to_cart(request, id):
     # Get the product
@@ -18,7 +38,7 @@ def add_to_cart(request, id):
             )
     try:
         # Get All the Orders
-        order = Order.objects.filter()[0]
+        order = Order.objects.filter(is_checked=False)[0]
     except:
         # Create new Cart
         order = Order.objects.create(
