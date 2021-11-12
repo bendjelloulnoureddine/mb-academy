@@ -56,14 +56,15 @@ def add_to_cart(request, id):
 def remove_from_cart(request, id):
     order_item = get_object_or_404(OrderItem, id=id)
     try:
+        # Order.products.filter(product__id=id).exists()
         order = Order.objects.filter(is_checked=False)[0]
         order.products.remove(order_item)
         order_item.delete()
-        messages.info(request, 'Item deleted with success')
+        messages.info(request, 'Produit supprimer avec success')
         return redirect(reverse_lazy('product-list'))
 
     except:
-        messages.error(request, 'No Order Found.')
+        messages.error(request, 'Produit / Pannier non trouver.')
         return redirect(reverse_lazy('product-list'))
 
 
