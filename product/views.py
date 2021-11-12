@@ -84,5 +84,10 @@ def product_detail(request, id):
     return render(request, 'product/detail.html', context)
 
 
+def category_products(request, id):
+    products = Product.objects.filter(category__id=id)
 
-# CRUD
+    context = {
+        'products': products
+    }
+    return render(request, 'product/category.html', context)
