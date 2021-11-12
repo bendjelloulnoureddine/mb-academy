@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, resolve
+from django.contrib import messages
 
 from product.models import Product
 from order.models import Order, OrderItem
@@ -51,3 +52,18 @@ def add_to_cart(request, id):
     #else:
     #   pass
     # Add the new product to the Cart
+
+def remove_from_cart(request, id):
+    order_item = get_object_or_404(OrderItem, id=id)
+    try:
+        order = Order.objects.filter(is_checked=False)[0]
+        order.products.remove(order_item)
+        order_item.delete()
+        messages.info(request, 'Item deleted with success')
+        return redirect(reverse_lazy('product-list'))
+
+    except:
+        messages.error(request, 'No Order Found.')
+        return redirect(reverse_lazy('product-list'))
+
+

@@ -9,6 +9,10 @@
     <body>
         {% include 'core/navbar.html' %}
 	<!-- -->
+        <div class="container">
+            {% include 'core/messages.html' %}
+        </div>
+    <!-- -->
         {% block content  %}
 
         {% endblock content %}

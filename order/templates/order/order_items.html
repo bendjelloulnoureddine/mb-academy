@@ -3,28 +3,34 @@
 {% block content %}
     <div class="container">
         <div class"row">
-            <div class="col-sm-12 col-md-9">
+            <div class="col-9">
                 <h5>Details du Pannier</h5>
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Titre</th>
-                      <th scope="col">Prix</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {% for item in order.products.all %}
-                    <tr>
-                        <th scope="row">{{forloop.counter}}</th>
-                        <td>{{item.product.name}}</td>
-                        <td>{{item.product.sellingPrice}}</td>
-                    </tr>
-                    {% endfor %}
-                  </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Titre</th>
+                          <th scope="col">Prix</th>
+                          <th scope="col"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for item in order.products.all %}
+                        <tr>
+                            <th scope="row">{{forloop.counter}}</th>
+                            <td>{{item.product.name}}</td>
+                            <td>{{item.product.sellingPrice}}</td>
+                            <td class="">
+                                <a href={% url 'delete_from_cart' item.id %} >Supprimer du pannier</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="col-sm-12 col-md-3">
+            <div class="col-3">
                 <h6>Confirmation</h6> 
                 {{total_price}}
                 <hr>
